@@ -17,7 +17,7 @@
 	src="<%=ORSView.APP_CONTEXT%>/js/CheckBox11.js"></script>
 <style>
 .p1 {
-	padding-top: 110px;
+	padding-top: 200px;
 	font-size: 20px;
 	color: #b62f2f;
 }
@@ -27,14 +27,15 @@
 }
 
 .p4 {
-	background-image: url('<%=ORSView.APP_CONTEXT%>/img/wallpa.jpg');
-	background-size: cover;
+	background-image: url('<%=ORSView.APP_CONTEXT%>/img/list2.jpg');
 	background-repeat: no-repeat;
-	padding-top: 8%;
+	background-attachment: fixed; 
+	background-size: cover;
+	padding-top: 85px;
+	
 }
 </style>
 </head>
-
 <body class="p4">
 	<div>
 		<%@include file="Header.jsp"%>
@@ -45,12 +46,12 @@
 
 
 			<div align="center">
-				<h1 class="text-decoration-color:Blue; font-weight-bold">
-				Marksheet Merit	List</h1>
+				<h1 class="text-light font-weight-bold pt-3"><font color="black">Marksheet Merit
+					List</h1></font>
 			</div>
 
-			<!-- <div class="row">
-				<div class="col-md-4"></div> -->
+			<div class="row">
+				<div class="col-md-4"></div>
 
 				<%
 					if (!ServletUtility.getSuccessMessage(request).equals("")) {
@@ -105,59 +106,55 @@
 			</br>
 			<div style="margin-left: 87%;" class="pb-2">
 
-				<a href="/project_3/ctl/JasperCtl" class="btn btn-lg btn-warning"
+				<a href="/project_3/ctl/JasperCtl" class="btn btn-lg btn-warning "
 					role="button" target="blank"> <span class="fa fa-print mr-1"></span>Print
 				</a>
 			</div>
 			<div style="margin-bottom: 20px;" class="table-responsive">
-<b>
-				<table class="table table-responsive">
-					<table class="table table-info" style="background-image: url('<%=ORSView.APP_CONTEXT%>/img/avatar-g92feff2a2_1920.webp');">
-						<thead>
-							<tr style="background-color: #8C8C8C;">
+				<table class="table table-dark table-bordered table-hover"> 
+					<thead>
+						<tr style="background-color: #8C8C8C;">
 
-								<th class="text">S.NO</th>
+							<th class="text">S.NO</th>
 
-								<th class="text">RollNo</th>
-								<th class="text">Name</th>
-								<th class="text">Physics</th>
-								<th class="text">Chemistry</th>
-								<th class="text">Maths</th>
-								<th class="text">Total</th>
-								<th class="text">Percentage(%)</th>
-							</tr>
-						</thead>
-						<%
-							while (it.hasNext()) {
-									dto = it.next();
-						%>
+							<th class="text">RollNo</th>
+							<th class="text">Name</th>
+							<th class="text">Physics</th>
+							<th class="text">Chemistry</th>
+							<th class="text">Maths</th>
+							<th class="text">Total</th>
+							<th class="text">Percentage(%)</th>
+						</tr>
+					</thead>
+					<%
+						while (it.hasNext()) {
+								dto = it.next();
+					%>
 
-						<tbody>
-							<tr>
+					<tbody>
+						<tr>
 
-								<td align="center"><%=index++%></td>
-								<td align="center"><%=dto.getRollNo()%></td>
-								<td align="center"><%=dto.getName()%></td>
-								<td align="center"><%=dto.getPhysics()%></td>
-								<td align="center"><%=dto.getChemistry()%></td>
-								<td align="center"><%=dto.getMaths()%></td>
-								<td align="center">
-									<%
-										int total = (dto.getChemistry() + dto.getPhysics() + dto.getMaths());
-									%><%=total%></td>
-								<td align="center">
-									<%
-										float percentage = ((total * 100) / 300);
-									%> <%=percentage%>%</td>
+							<td align="center"><%=index++%></td>
+							<td align="center"><%=dto.getRollNo()%></td>
+							<td align="center"><%=dto.getName()%></td>
+							<td align="center"><%=dto.getPhysics()%></td>
+							<td align="center"><%=dto.getChemistry()%></td>
+							<td align="center"><%=dto.getMaths()%></td>
+							<td align="center">
+								<%
+									int total = (dto.getChemistry() + dto.getPhysics() + dto.getMaths());
+								%><%=total%></td>
+							<td align="center">
+								<%
+									float percentage = ((total * 100) / 300);
+								%> <%=percentage%></td>
 
-							</tr>
-						</tbody>
-						<%
-							}
-						%>
-					</table>
+						</tr>
+					</tbody>
+					<%
+						}
+					%>
 				</table>
-				</b>
 			</div>
 			<div style="padding-left: 48%;">
 				<input type="submit" name="operation" class="btn btn-dark btn-md"

@@ -20,7 +20,7 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Course list functionality ctl.Toperform search and delete,show list operation
+ * course list functionality ctl.Toperform search and delete,show list operation
  * @author Sushobhit pandey
  *
  */

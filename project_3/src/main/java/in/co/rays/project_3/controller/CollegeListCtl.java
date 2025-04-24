@@ -20,7 +20,7 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- *College list ctl.to perform search and show list operation
+ *college list ctl.to perform search and show list operation
  * @author Sushobhit pandey
  *
  */
@@ -69,7 +69,6 @@ public class CollegeListCtl extends BaseCtl {
 		List next;
 		try {
 			list = model.search(dto, pageNo, pageSize);
-			ServletUtility.setDto(dto, request);
 			next = model.search(dto, pageNo + 1, pageSize);
 
 			ServletUtility.setList(list, request);
@@ -141,7 +140,7 @@ public class CollegeListCtl extends BaseCtl {
 					for (String id : ids) {
 						deletebean.setId(DataUtility.getLong(id));
 						model.delete(deletebean);
-						ServletUtility.setSuccessMessage("Data Deleted Successfully", request);
+						ServletUtility.setSuccessMessage("Data Delete Successfully", request);
 					}
 				} else {
 					ServletUtility.setErrorMessage("Select at least one record", request);
@@ -161,7 +160,7 @@ public class CollegeListCtl extends BaseCtl {
 			} else {
 				request.setAttribute("nextListSize", next.size());
 			}
-			
+
 			ServletUtility.setList(list, request);
 			ServletUtility.setPageNo(pageNo, request);
 			ServletUtility.setPageSize(pageSize, request);

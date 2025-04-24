@@ -12,9 +12,9 @@ import javax.mail.internet.MimeMessage;
 
 import in.co.rays.project_3.exception.ApplicationException;
 
+
 /**
- * EmailUtility provides the email services
- * 
+ * EmailUtility provides the email services 
  * @author Sushobhit pandey
  *
  */
@@ -60,26 +60,30 @@ public class EmailUtility {
 	 */
 	static {
 		props.put("mail.smtp.host", SMTP_HOST_NAME);
+		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
 		props.put("mail.smtp.ssl.protocols", "TLSv1.2");
-		props.put("mail.smtp.auth", "true");
 		props.put("mail.debug", "true");
 		props.put("mail.smtp.port", SMTP_PORT);
 		props.put("mail.smtp.socketFactory.port", SMTP_PORT);
 		props.put("mail.smtp.socketFactory.class", SSL_FACTORY);
 		props.put("mail.smtp.socketFactory.fallback", "false");
+		props.put("mail.smtp.starttls.enable", "true");
+		props.put("mail.smtpEnableSSl.enable", "false");
+		props.put("mail.smtp.starttls.required", "true");
 	}
 
 	/**
 	 * Sends an Email
 	 *
-	 * @param emailMessageDTO : Email message
+	 * @param emailMessageDTO
+	 *            : Email message
 	 * @throws ApplicationException
 	 */
 	public static void sendMail(EmailMessage emailMessageDTO) throws ApplicationException {
 
 		try {
-			System.out.println(emailFromAddress + emailPassword);
+
 			// Connection to Mail Server
 			Session session = Session.getDefaultInstance(props, new javax.mail.Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
@@ -164,7 +168,6 @@ public class EmailUtility {
 			Transport.send(msg);
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
 			throw new ApplicationException("Email " + ex.getMessage());
 		}
 	}

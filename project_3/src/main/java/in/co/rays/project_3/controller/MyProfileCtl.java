@@ -90,7 +90,7 @@ public class MyProfileCtl extends BaseCtl {
 		} else if (!DataValidator.isDate(request.getParameter("dob"))) {
 			request.setAttribute("dob", PropertyReader.getValue("error.date", "Date Of Birth"));
 			pass = false;
-		} else if (!DataValidator.isValidAge(request.getParameter("dob"))) {
+		} else if (!DataValidator.isAge(request.getParameter("dob"))) {
 			request.setAttribute("dob", "Age Must be greater then 18 year");
 			pass = false;
 		}

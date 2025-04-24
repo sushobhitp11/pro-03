@@ -1,6 +1,6 @@
 package in.co.rays.project_3.controller;
 
-import java.io.IOException; 
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +21,7 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Forget password ctl.To perform password send in email
+ * forget password ctl.To perform password send in email
  * 
  * @author Sushobhit pandey
  *
@@ -51,7 +51,9 @@ public class ForgetPasswordCtl extends BaseCtl {
 		UserDTO dto = new UserDTO();
 		dto.setLogin(DataUtility.getString(request.getParameter("login")));
 		populateBean(dto, request);
+		System.out.println("Hello");
 		return dto;
+		
 
 	}
 
@@ -70,30 +72,19 @@ public class ForgetPasswordCtl extends BaseCtl {
 		UserDTO dto = (UserDTO) populateDTO(request);
 		if (OP_GO.equalsIgnoreCase(op)) {
 			try {
-				System.out.println(dto.getLogin());
-				boolean flag = userModel.forgetPassword(dto.getLogin());
-				ServletUtility.setSuccessMessage("password has been send to your login id", request);
+				userModel.forgetPassword(dto.getLogin());
+				ServletUtility.setSuccessMessage("Password has been sent to your registered email id.", request);
 				
-				ServletUtility.forward(getView(), request, response); 
-				
-				if (flag == true) {
-					ServletUtility.forward(getView(), request, response);
-
-				} else {
-					ServletUtility.redirect(ORSView.ERROR_CTL, request, response);
-					return;
-				}
-
 			} catch (RecordNotFoundException e) {
 				ServletUtility.setErrorMessage(e.getMessage(), request);
 				log.error(e);
 			} catch (ApplicationException e) {
+				e.printStackTrace();
 				log.error(e);
 				ServletUtility.handleException(e, request, response);
 				return;
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
+			ServletUtility.setDto(dto, request);
 			ServletUtility.forward(getView(), request, response);
 
 		}

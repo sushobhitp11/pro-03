@@ -20,7 +20,7 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Get marksheet functionality ctl.to perform  get marksheet operation
+ * get marksheet functionality ctl.to perform  get marksheet opeation
  * @author Sushobhit pandey
  *
  */

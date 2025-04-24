@@ -1,4 +1,5 @@
 
+<%@page import="java.util.HashMap"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 <%@page import="in.co.rays.project_3.model.ModelFactory"%>
@@ -20,10 +21,13 @@
 	src="<%=ORSView.APP_CONTEXT%>/js/CheckBox11.js"></script>
 <style>
 .hm {
-	background-image: url('<%=ORSView.APP_CONTEXT%>/img/rain.jpg');
+	background-image: url('<%=ORSView.APP_CONTEXT%>/img/list2.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed;
 	background-size: cover;
-	background-repeat: no-repeate;
-	padding-top: 6%;
+	padding-top: 85px;
+
+	/*  background-size: 100%; */
 }
 
 .p1 {
@@ -37,18 +41,15 @@
 }
 </style>
 </head>
-
+<%@include file="Header.jsp"%>
+<%@include file="calendar.jsp"%>
 <body class="hm">
-	<%@include file="Header.jsp"%>
-	<%@include file="calendar.jsp"%>
-	<div></div>
 	<div>
 		<form class="pb-5" action="<%=ORSView.USER_LIST_CTL%>" method="post">
 			<jsp:useBean id="dto" class="in.co.rays.project_3.dto.UserDTO"
 				scope="request"></jsp:useBean>
 			<%
 				List list1 = (List) request.getAttribute("roleList");
-				List uList = (List) request.getAttribute("uList");
 			%>
 
 
@@ -66,11 +67,10 @@
 				if (list.size() != 0) {
 			%>
 			<center>
-				<h1 class="text-white font-weight-bold pt-3">
-					<b>User List 7</b>
+				<h1 class="text-dark font-weight-bold pt-3">
+					<u>User List</u>
 				</h1>
 			</center>
-			<br>
 			<div class="row">
 				<div class="col-md-4"></div>
 				<%
@@ -110,9 +110,8 @@
 			<div class="row">
 
 
-				<div class="col-sm-2"></div>
 				<div class="col-sm-2">
-					<input type="text" name="firstName" placeholder="Enter First Name"
+					<input type="text" name="firstName" placeholder="Enter FirstName"
 						class="form-control"
 						value="<%=ServletUtility.getParameter("firstName", request)%>">
 				</div>
@@ -123,27 +122,52 @@
 						class="form-control"
 						value="<%=ServletUtility.getParameter("login", request)%>">
 				</div>
+
 				&emsp;
-				<div class="col-sm-2"><%=HTMLUtility.getPreload("Role", String.valueOf(dto.getRoleId()), list1)%></div>
+
+
+				<div class="col-sm-2">
+					<%
+						HashMap map = new HashMap();
+							map.put("Male", "Male");
+							map.put("Female", "Female");
+
+							String htmlList = HTMLUtility.getList("gender", dto.getGender(), map);
+					%>
+					<%=htmlList%>
+					<font color="red" class="pl-sm-5"> <%=ServletUtility.getErrorMessage("gender", request)%></font></br>
+				</div>
+
+				&emsp;
+				<div class="col-sm-2"><%=HTMLUtility.getList("Role", String.valueOf(dto.getRoleId()), list1)%></div>
+
+				&emsp;
+
+				<div class="col-sm-2">
+					<input type="text" id="datepicker2" name="dob"
+						placeholder="Enter DOB" class="form-control"
+						value="<%=ServletUtility.getParameter("dob", request)%>">
+				</div>
+
 				&emsp;
 
 				<div class="col-sm-2">
 					<input type="submit" class="btn btn-primary btn-md"
 						style="font-size: 15px" name="operation"
-						value="<%=UserListCtl.OP_SEARCH%>"> &emsp; <input
+						value="<%=UserListCtl.OP_SEARCH%>">&emsp; <input
 						type="submit" class="btn btn-dark btn-md" style="font-size: 15px"
 						name="operation" value="<%=UserListCtl.OP_RESET%>">
 				</div>
 
 
-				<div class="col-sm-2"></div>
+				<div class="col-sm-1"></div>
 			</div>
 
 			</br>
 			<div style="margin-bottom: 20px;" class="table-responsive">
 				<table class="table table-bordered table-dark table-hover">
 					<thead>
-						<tr style="background-color: grey">
+						<tr style="background-color: #8C8C8C;">
 
 							<th width="10%"><input type="checkbox" id="select_all"
 								name="Select" class="text"> Select All</th>
@@ -192,11 +216,9 @@
 						class="btn btn-warning btn-md" style="font-size: 17px"
 						value="<%=UserListCtl.OP_PREVIOUS%>"
 						<%=pageNo > 1 ? "" : "disabled"%>></td>
-
 					<td><input type="submit" name="operation"
 						class="btn btn-primary btn-md" style="font-size: 17px"
 						value="<%=UserListCtl.OP_NEW%>"></td>
-
 					<td><input type="submit" name="operation"
 						class="btn btn-danger btn-md" style="font-size: 17px"
 						value="<%=UserListCtl.OP_DELETE%>"></td>
@@ -232,37 +254,33 @@
 				<%
 					}
 				%>
-
-
-
-
-				<%
-					if (!ServletUtility.getSuccessMessage(request).equals("")) {
-				%>
-
-				<div class="col-md-4 alert alert-success alert-dismissible"
-					style="background-color: #80ff80">
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
-					<h4>
-						<font color="#008000"><%=ServletUtility.getSuccessMessage(request)%></font>
-					</h4>
-				</div>
-				<%
-					}
-				%>
-				<div style="padding-left: 48%;">
-					<input type="submit" name="operation"
-						class="btn btn-primary btn-md" style="font-size: 17px"
-						value="<%=UserListCtl.OP_BACK%>">
-				</div>
-
 				<div class="col-md-4"></div>
 			</div>
+			</br>
+
+			<div style="padding-left: 48%;">
+				<input type="submit" name="operation" class="btn btn-primary btn-md"
+					style="font-size: 17px" value="<%=UserListCtl.OP_BACK%>">
+			</div>
+
 
 			<%
 				}
 			%>
+			<%-- <%
+				if (!ServletUtility.getSuccessMessage(request).equals("")) {
+			%>
 
+			<div class="col-md-4 alert alert-success alert-dismissible"
+				style="background-color: #80ff80">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<h4>
+					<font color="#008000"><%=ServletUtility.getSuccessMessage(request)%></font>
+				</h4>
+			</div>
+			<%
+				}
+			%> --%>
 			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
 				type="hidden" name="pageSize" value="<%=pageSize%>">
 		</form>

@@ -17,7 +17,7 @@ import in.co.rays.project_3.util.JDBCDataSource;
 
 /**
  * JDBC implements of College model
- * @author Basant Vishwakarma
+ * @author Sushobhit pandey
  *
  */
 public class CollegeModelJDBCImpl implements CollegeModelInt {

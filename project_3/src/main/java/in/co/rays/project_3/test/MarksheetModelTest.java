@@ -19,13 +19,13 @@ public class MarksheetModelTest {
 
 	// public static MarksheetModelInt model=new MarksheetModelJDBCImpl();
 	public static void main(String[] args) throws Exception {
-		//addTest();
+		// addTest();
 		// deleteTest();
-		//updateTest();
-		//findByPkTest();
-		//findByEmailIdTest();
-	 listTest();
-	//	searchTest();
+		// updateTest();
+		// findByPkTest();
+		// findByEmailIdTest();
+		listTest();
+		// searchTest();
 	}
 
 	public static void listTest() throws ApplicationException {
@@ -51,7 +51,7 @@ public class MarksheetModelTest {
 		// TODO Auto-generated method stub
 		MarksheetDTO dto1 = new MarksheetDTO();
 		dto1.setId(1L);
-		//dto1.setRollNo("101");
+		// dto1.setRollNo("101");
 		ArrayList<MarksheetDTO> a = (ArrayList<MarksheetDTO>) model.search(dto1, 0, 0);
 		for (MarksheetDTO dto : a) {
 
@@ -104,7 +104,7 @@ public class MarksheetModelTest {
 		dto.setRollNo("102");
 		dto.setStudentId(2);
 		dto.setPhysics(75);
-		dto.setName("Sushobhit pandey");
+		dto.setName("Yash");
 		dto.setCreatedBy("Admin");
 		dto.setModifiedBy("Admin");
 		dto.setCreatedDatetime(new Timestamp(new Date().getTime()));

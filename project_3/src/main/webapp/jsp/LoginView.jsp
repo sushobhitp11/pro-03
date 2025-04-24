@@ -1,4 +1,3 @@
-
 <%@page import="in.co.rays.project_3.controller.UserRegistrationCtl"%>
 <%@page import="in.co.rays.project_3.util.ServletUtility"%>
 <%@page import="in.co.rays.project_3.controller.LoginCtl"%>
@@ -11,8 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Login view</title>
-<link rel="icon" type="image/x-icon" href="/img/logo.png">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,  initial-scale=1">
 
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -27,7 +25,7 @@
 
 <style type="text/css">
 .log1 {
-	padding-top: 6%;
+	padding-top: 5%;
 }
 
 .input-group-addon {
@@ -35,27 +33,30 @@
 }
 
 .grad {
-	background-image: linear-gradient(to top right, Teal, MistyRose, Black);
-	background-repeat: no repeat;
+	background-image: linear-gradient(to bottom right, white, grey);
+	background-repeat: no-repeat;
 	background-size: 100%;
-	padding-bottom: 11px;
 }
 
 i.css {
 	border: 2px solid #8080803b;
 	padding-left: 10px;
+	padding-bottom: 11px;
 	background-color: #ebebe0;
 }
 
 .p4 {
-	background-image: url('<%=ORSView.APP_CONTEXT%>/img/unsplash.jpg');
+	background-image: url('<%=ORSView.APP_CONTEXT%>/img/loginhere.jpg');
+	background-repeat: no-repeat;
+	background-attachment: fixed; 
 	background-size: cover;
-	background-repeat: no repeat;
-	class
-	=
-	"img-responsive";
+	padding-top: 75px;
+/*background-position: center top;*/
+	
 }
 </style>
+
+
 </head>
 <body class="p4">
 	<div>
@@ -68,12 +69,12 @@ i.css {
 
 			<div class="row log1">
 				<!-- Grid column -->
-				<div class="col-md-4"></div>
+				<div class="col-md-4 "></div>
 				<div class="col-md-4">
-					<div class="card input-group-addon grad	">
-						 <div class="card-body"> 
+					<div class="card  input-group-addon   grad 	">
+						<div class="card-body">
 
-							<h3 class="text-center ">Login</h3>
+							<h3 class="text-center text-dark"><b>Login</b></h3>
 							<!--Body-->
 							<div>
 
@@ -109,7 +110,6 @@ i.css {
 									String uri = (String) request.getAttribute("uri");
 								%>
 
-
 								<input type="hidden" name="id" value="<%=dto.getId()%>">
 								<input type="hidden" name="createdBy"
 									value="<%=dto.getCreatedBy()%>"> <input type="hidden"
@@ -121,11 +121,11 @@ i.css {
 							</div>
 
 							<span class="pl-sm-5"><b>Email Id</b> <span
-								style="color: red;">&#42</span></span> </br>
+								style="color: red;">*</span></span> </br>
 
 							<div class="col-sm-12">
-								<div class="input-group">
-									<div class="input-group-prepend">
+								  <div class="input-group"> 
+									 <div class="input-group-prepend">  
 										<div class="input-group-text">
 											<i class="fa fa-envelope grey-text" style="font-size: 1rem;"></i>
 										</div>
@@ -139,23 +139,18 @@ i.css {
 							<font color="red" class="pl-sm-5"> <%=ServletUtility.getErrorMessage("login", request)%></font></br>
 
 							<span class="pl-sm-5"><b>Password</b> <span
-								style="color: red;">&#42</span></span> </br>
+								style="color: red;">*</span></span> </br>
 							<div class="col-sm-12">
-								<div class="input-group ">
-									<div class="input-group-prepend ">
+								<div class="input-group">
+									<div class="input-group-prepend">
 										<div class="input-group-text">
 											<i class="fa fa-lock grey-text" style="font-size: 1rem;"></i>
 										</div>
 									</div>
-									<input type="password" id="myInput"
-										class="form-control input-group-addon" name="password"
-										placeholder="Enter password"
+									<input type="password" class="form-control input-group-addon"
+										name="password" placeholder="Enter password"
 										value="<%=DataUtility.getStringData(dto.getPassword())%>">
-
-
 								</div>
-
-
 							</div>
 							<font color="red" class="pl-sm-5"> <%=ServletUtility.getErrorMessage("password", request)%></font></br>
 							</br>
@@ -164,17 +159,17 @@ i.css {
 							<div class="text-center">
 
 								<input type="submit" name="operation"
-									class="btn btn-success btn-sm "
+									class="btn btn-success btn-md hover-overlayed"
 									style="font-size: 17px" value="<%=LoginCtl.OP_SIGN_IN%>">
 
 								<input type="submit" name="operation"
-									class="btn btn-primary btn-sm "
-									style="font-size: 17px" value="<%=LoginCtl.OP_SIGN_UP%>">
+									class="btn btn-primary btn-md" style="font-size: 17px"
+									value="<%=UserRegistrationCtl.OP_SIGN_UP%>">
 							</div>
 							<div class="text-center">
 								<a href="<%=ORSView.FORGET_PASSWORD_CTL%>"
-									style="color: white; font-size: 15px;"><b>Forget my
-										password ?</b></a>
+									style="color: black; font-size: 15px;"><b><u>Forget my
+										password ?</b></u></a>
 							</div>
 							<input type="hidden" name="uri" value="<%=uri%>">
 						</div>

@@ -1,4 +1,3 @@
-
 package in.co.rays.project_3.test;
 
 import java.sql.Timestamp;
@@ -105,12 +104,12 @@ public class UserModelTest {
 		UserDTO dto = new UserDTO();
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 		
-		dto.setFirstName("Vipin");
-		dto.setLastName("Gupta");
-		dto.setDob(sdf.parse("13-06-1992"));
-		dto.setConfirmPassword("Vipin@12345");
-		dto.setPassword("Vipin@12345");
-		dto.setLogin("gupta.vipin02@gmail.com");
+		dto.setFirstName("Yash");
+		dto.setLastName("Kanoongo");
+		dto.setDob(sdf.parse("13-05-1999"));
+		dto.setConfirmPassword("Yash@12345");
+		dto.setPassword("Yash@12345");
+		dto.setLogin("yashkanoongo493@gmail.com");
 		dto.setGender("male");
 		dto.setUnSuccessfullLogin(2);
 
@@ -118,8 +117,8 @@ public class UserModelTest {
 		dto.setModifiedBy("admin");
 		dto.setRoleId(1);
 		dto.setMobileNo("9406653787");
-		dto.setRegisteredIP("gupta.vipin02@gmail.com");
-		dto.setLoginIP("gupta.vipin02@gmail.com");
+		dto.setRegisteredIP("yashkanoongo493@gmail.com");
+		dto.setLoginIP("yashkanoongo493@gmail.com");
 		dto.setLastLogin(new Timestamp(new Date().getTime()));
 		dto.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		dto.setModifiedDatetime(new Timestamp(new Date().getTime()));

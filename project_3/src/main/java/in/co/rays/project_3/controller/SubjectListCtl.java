@@ -21,8 +21,8 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Subject functionality controller.perfrom search and show list operation
-* @author Sushobhit pandey
+ * subject functionality controller.perfrom search and show list operation
+ * @author Sushobhit pandey
  *
  */
 @WebServlet(name = "SubjectListCtl", urlPatterns = { "/ctl/SubjectListCtl" })
@@ -128,12 +128,11 @@ public class SubjectListCtl extends BaseCtl {
     		}else if(OP_NEW.equalsIgnoreCase(op)){
         		ServletUtility.redirect(ORSView.SUBJECT_CTL, request, response);
         		return;
-        	}else if(OP_BACK.equalsIgnoreCase(op)){
-       		ServletUtility.redirect(ORSView.SUBJECT_LIST_CTL, request, response);
-       		return;
-       	    }else if(OP_DELETE.equalsIgnoreCase(op)){
-        		pageNo = 1;
+        	}else if(OP_DELETE.equalsIgnoreCase(op)){
+        		pageNo=1;
+        		
         		if(ids !=null&& ids.length>0){
+        			System.out.println("kjkjk____");
         			SubjectDTO deleteBean=new SubjectDTO();
         			for(String id:ids){
         				deleteBean.setId(DataUtility.getLong(id));
@@ -144,7 +143,11 @@ public class SubjectListCtl extends BaseCtl {
 					ServletUtility.setErrorMessage("Select at least one record", request);
 				}
         	}
-        	 
+        	 if(OP_BACK.equalsIgnoreCase(op)){
+        		 System.out.println("jijijij");
+        		ServletUtility.redirect(ORSView.SUBJECT_LIST_CTL, request, response);
+        		return;
+        	}
         	 dto = (SubjectDTO) populateDTO(request);
         	list = model.search(dto, pageNo, pageSize);
         	ServletUtility.setDto(dto, request);

@@ -23,17 +23,18 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Student functionality CRUD operation
+ * student functionality CRUD operation
+ * 
  * @author Sushobhit pandey
  *
  */
-@WebServlet(urlPatterns={"/ctl/StudentCtl"})
+@WebServlet(urlPatterns = { "/ctl/StudentCtl" })
 public class StudentCtl extends BaseCtl {
 	private static Logger log = Logger.getLogger(StudentCtl.class);
 
 	@Override
 	protected void preload(HttpServletRequest request) {
-		CollegeModelInt model =ModelFactory.getInstance().getCollegeModel() ;
+		CollegeModelInt model = ModelFactory.getInstance().getCollegeModel();
 		try {
 			List l = model.list();
 			request.setAttribute("collegeList", l);
@@ -95,7 +96,7 @@ public class StudentCtl extends BaseCtl {
 		} else if (!DataValidator.isDate(dob)) {
 			request.setAttribute("dob", PropertyReader.getValue("error.date", "Date Of Birth"));
 			pass = false;
-		} else if (!DataValidator.isValidAge(dob)) {
+		} else if (!DataValidator.isAge(dob)) {
 			request.setAttribute("dob", "Age Must be greater then 18 year");
 			pass = false;
 		}
@@ -124,8 +125,8 @@ public class StudentCtl extends BaseCtl {
 		dto.setEmailId(DataUtility.getString(request.getParameter("emailId")));
 
 		dto.setCollegeId(DataUtility.getLong(request.getParameter("collegeId")));
-		populateBean(dto,request);
-		
+		populateBean(dto, request);
+
 		log.debug("StudentCtl Method populatebean Ended");
 
 		return dto;

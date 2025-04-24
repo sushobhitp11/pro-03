@@ -1,10 +1,10 @@
 package in.co.rays.project_3.exception;
 
+/**
+ * @author Sushobhit pandey
+ */
 public class RecordNotFoundException extends Exception{
-	   /**
-	    * 
-	    * @author Sushobhit pandey
-	     */
+	
 	private static final long serialVersionUID = 1L;
 
 	public RecordNotFoundException(String msg){

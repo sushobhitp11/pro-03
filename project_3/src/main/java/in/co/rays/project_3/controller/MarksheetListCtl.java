@@ -20,10 +20,10 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Marksheet functionality ctl.to show list of marksheet
+ * marksheet functionality ctl.to show list of marksheet
  * @author Sushobhit pandey
  *
- */
+ */ 
 @WebServlet(name = "MarksheetListCtl", urlPatterns = { "/ctl/MarksheetListCtl" })
 public class MarksheetListCtl extends BaseCtl {
 
@@ -47,7 +47,8 @@ public class MarksheetListCtl extends BaseCtl {
     @Override
     protected BaseDTO populateDTO(HttpServletRequest request) {
         MarksheetDTO dto = new MarksheetDTO();
-        dto.setId(DataUtility.getLong(request.getParameter("RollNo")));
+        dto.setId(DataUtility.getLong(request.getParameter("rollId")));
+        dto.setRollNo(DataUtility.getString(request.getParameter("rollNo")));
         dto.setStudentId(DataUtility.getLong(request.getParameter("studentId")));
         dto.setName(DataUtility.getString(request.getParameter("name")));
         populateBean(dto,request);
@@ -160,15 +161,16 @@ public class MarksheetListCtl extends BaseCtl {
                     for (String id : ids) {
                         deletebean.setId(DataUtility.getLong(id));
                         model.delete(deletebean);
-                        ServletUtility.setSuccessMessage("Data Delete Successfully", request);
+                        ServletUtility.setSuccessMessage("Data Successfully Deleted!", request);
                     }
+                    
                 } else {
                     ServletUtility.setErrorMessage(
                             "Select at least one record", request);
                 }
             }
             dto = (MarksheetDTO) populateDTO(request);
-            list = model.search(dto, pageNo, pageSize);
+            list = model.search(dto, pageNo, pageSize);//calling search
             ServletUtility.setDto(dto, request);
             next = model.search(dto, pageNo+1, pageSize);
             ServletUtility.setList(list, request);
@@ -183,6 +185,7 @@ public class MarksheetListCtl extends BaseCtl {
             ServletUtility.setList(list, request);
             ServletUtility.setPageNo(pageNo, request);
             ServletUtility.setPageSize(pageSize, request);
+            
             ServletUtility.forward(getView(), request, response);
         } catch (ApplicationException e) {
             log.error(e);

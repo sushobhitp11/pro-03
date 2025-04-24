@@ -25,6 +25,7 @@ import in.co.rays.project_3.util.ServletUtility;
 /**
  * Timetable functionality controller. to perform add,delete and update
  * operation
+ * 
  * @author Sushobhit pandey
  *
  */
@@ -149,9 +150,9 @@ public class TimeTableCtl extends BaseCtl{
 						 * dto1 = model.checkByCourseName(dto.getCourseId(), dto.getExamDate()); dto2 =
 						 * model.checkBySubjectName(dto.getCourseId(), dto.getSubId(),
 						 * dto.getExamDate()); dto3 = model.checkBysemester(dto.getCourseId(),
-						 * dto.getSubId(), dto.getSemester(), dto.getExamDate()); if (dto1 == null &&
-						 * dto2 == null && dto3 == null) {
-						 */	if (id==0) {
+						 * dto.getSubId(), dto.getSemester(), dto.getExamDate());
+						 */
+						if (dto1 == null || dto2 == null || dto3 == null) {
 							model.add(dto);
 							ServletUtility.setDto(dto, request);
 							ServletUtility.setSuccessMessage("Data is successfully saved", request);

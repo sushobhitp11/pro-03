@@ -22,8 +22,8 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Faculty list functionality ctl.To perform show,search and delete operation
-* @author Sushobhit pandey
+ * faculty list functionality ctl.To perform show,search and delete operation
+ * @author Sushobhit pandey
  *
  */
 @WebServlet(name = "FacultyListCtl", urlPatterns = { "/ctl/FacultyListCtl" })

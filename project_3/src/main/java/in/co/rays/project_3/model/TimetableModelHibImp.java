@@ -19,6 +19,7 @@ import in.co.rays.project_3.util.HibDataSource;
 
 /**
  * Hibernate implements of TimeTable model
+ * 
  * @author Sushobhit pandey
  *
  */
@@ -50,9 +51,8 @@ public class TimetableModelHibImp implements TimetableModelInt {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
-
 			}
-			throw new ApplicationException("Exception in timetable Add " + e.getMessage() );
+			throw new ApplicationException("Exception in timetable Add " + e.getMessage());
 		} finally {
 			session.close();
 		}
@@ -91,7 +91,7 @@ public class TimetableModelHibImp implements TimetableModelInt {
 		SubjectModelInt Smodel = ModelFactory.getInstance().getSubjectModel();
 		SubjectDTO Sbean = Smodel.findByPK(dto.getSubId());
 		dto.setSubName(Sbean.getSubjectName());
-		
+
 		Session session = null;
 		Transaction tx = null;
 		try {
@@ -148,35 +148,36 @@ public class TimetableModelHibImp implements TimetableModelInt {
 
 	public List search(TimetableDTO dto, int pageNo, int pageSize) throws ApplicationException {
 		// TODO Auto-generated method stub
-		System.out.println("kkkkkkkk"+dto.getCourseId()+"....."+dto.getSubId()+";;;;;"+dto.getExamDate());
-		
+		System.out.println("kkkkkkkk" + dto.getCourseId() + "....." + dto.getSubId() + ";;;;;" + dto.getExamDate());
+
 		Session session = null;
 		List list = null;
 		try {
 			session = HibDataSource.getSession();
 			Criteria criteria = session.createCriteria(TimetableDTO.class);
-			if(dto!=null){
-			if (dto.getId() !=null) {
-				criteria.add(Restrictions.eq("id", dto.getId()));
+			if (dto != null) {
+				if (dto.getId() != null) {
+					criteria.add(Restrictions.eq("id", dto.getId()));
+				}
+				if (dto.getCourseName() != null && dto.getCourseName().length() > 0) {
+					criteria.add(Restrictions.like("courseName", dto.getCourseName() + "%"));
+				}
+				if (dto.getSubName() != null && dto.getSubName().length() > 0) {
+					criteria.add(Restrictions.like("subName", dto.getSubName() + "%"));
+				}
+				if (dto.getSemester() != null && dto.getSemester().length() > 0) {
+					criteria.add(Restrictions.like("semester", dto.getSemester() + "%"));
+				}
+				if (dto.getExamDate() != null && dto.getExamDate().getDate() > 0) {
+					criteria.add(Restrictions.eq("examDate", dto.getExamDate()));
+				}
+				if (dto.getSubId() > 0) {
+					criteria.add(Restrictions.eq("subId", dto.getSubId()));
+				}
+				if (dto.getCourseId() > 0) {
+					criteria.add(Restrictions.eq("courseId", dto.getCourseId()));
+				}
 			}
-			if (dto.getCourseName() != null && dto.getCourseName().length() > 0) {
-				criteria.add(Restrictions.like("courseName", dto.getCourseName() + "%"));
-			}
-			if (dto.getSubName() != null && dto.getSubName().length() > 0) {
-				criteria.add(Restrictions.like("subName", dto.getSubName() + "%"));
-			}
-			if (dto.getSemester() != null && dto.getSemester().length() > 0) {
-				criteria.add(Restrictions.like("semester", dto.getSemester() + "%"));
-			}
-			if (dto.getExamDate() != null && dto.getExamDate().getDate() > 0) {
-				criteria.add(Restrictions.eq("examDate", dto.getExamDate()));
-			}
-			if (dto.getSubId() > 0) {
-				criteria.add(Restrictions.eq("subId", dto.getSubId()));
-			}
-			if (dto.getCourseId() > 0) {
-				criteria.add(Restrictions.eq("courseId", dto.getCourseId()));
-			}}
 			if (pageSize > 0) {
 				criteria.setFirstResult((pageNo - 1) * pageSize);
 				criteria.setMaxResults(pageSize);
@@ -218,7 +219,8 @@ public class TimetableModelHibImp implements TimetableModelInt {
 		try {
 			session = HibDataSource.getSession();
 			Criteria criteria = session.createCriteria(TimetableDTO.class);
-			criteria.add(Restrictions.and(Restrictions.eq("courseId", courseId), Restrictions.eq("examDate", date)));
+			criteria.add(Restrictions.eq("courseId", courseId));
+			criteria.add(Restrictions.eq("examdate", date));
 			List list = criteria.list();
 			if (list.size() > 0) {
 				dto = (TimetableDTO) list.get(0);
@@ -275,7 +277,7 @@ public class TimetableModelHibImp implements TimetableModelInt {
 			Disjunction dis = Restrictions.disjunction();
 			dis.add(Restrictions.eq("courseId", courseId));
 			dis.add(Restrictions.eq("subId", subjectId));
-			dis.add(Restrictions.like("semester", semester));
+			dis.add(Restrictions.eq("semester", semester));
 			dis.add(Restrictions.eq("examDate", date));
 			criteria.add(dis);
 			List list = criteria.list();

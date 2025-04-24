@@ -13,18 +13,14 @@ import in.co.rays.project_3.exception.ApplicationException;
 import in.co.rays.project_3.exception.DuplicateRecordException;
 import in.co.rays.project_3.util.HibDataSource;
 
-
 /**
- * 
  * Hibernate implements of college model
- * 
  * @author Sushobhit pandey
  *
  */
 public class CollegeModelHibImp implements CollegeModelInt {
 
 	public long add(CollegeDTO dto) throws ApplicationException, DuplicateRecordException {
-		// TODO Auto-generated method stub
 		Session session = null;
 		Transaction tx = null;
 		CollegeDTO duplicateCollegeName = fingByName(dto.getName());
@@ -38,7 +34,6 @@ public class CollegeModelHibImp implements CollegeModelInt {
 			tx.commit();
 		} catch (HibernateException e) {
 			e.printStackTrace();
-			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
 
@@ -51,7 +46,6 @@ public class CollegeModelHibImp implements CollegeModelInt {
 	}
 
 	public void delete(CollegeDTO dto) throws ApplicationException {
-		// TODO Auto-generated method stub
 		Session session = null;
 		Transaction tx = null;
 		try {
@@ -72,7 +66,6 @@ public class CollegeModelHibImp implements CollegeModelInt {
 	}
 
 	public void update(CollegeDTO dto) throws ApplicationException, DuplicateRecordException {
-		// TODO Auto-generated method stub
 		Session session = null;
 		Transaction tx = null;
 		CollegeDTO dtoExist = fingByName(dto.getName());
@@ -104,12 +97,10 @@ public class CollegeModelHibImp implements CollegeModelInt {
 	}
 
 	public List list() throws ApplicationException {
-		// TODO Auto-generated method stub
 		return list(0, 0);
 	}
 
 	public List list(int pageNo, int pageSize) throws ApplicationException {
-		// TODO Auto-generated method stub
 		Session session = null;
 		List list = null;
 		try {
@@ -133,12 +124,10 @@ public class CollegeModelHibImp implements CollegeModelInt {
 	}
 
 	public List search(CollegeDTO dto) throws ApplicationException {
-		// TODO Auto-generated method stub
-		return search(dto, 0, 0);
+				return search(dto, 0, 0);
 	}
 
 	public List search(CollegeDTO dto, int pageNo, int pageSize) throws ApplicationException {
-		// TODO Auto-generated method stub
 		Session session = null;
 		List list = null;
 		try {
@@ -176,7 +165,6 @@ public class CollegeModelHibImp implements CollegeModelInt {
 	}
 
 	public CollegeDTO findByPK(long pk) throws ApplicationException {
-		// TODO Auto-generated method stub
 		System.out.println("======"+pk+"----------------------------------");
 		Session session = null;
 		CollegeDTO dto = null;
@@ -196,7 +184,6 @@ public class CollegeModelHibImp implements CollegeModelInt {
 	}
 
 	public CollegeDTO fingByName(String name) throws ApplicationException {
-		// TODO Auto-generated method stub
 		Session session=null;
 		CollegeDTO dto=null;
 		try {

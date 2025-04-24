@@ -36,7 +36,7 @@ public class MarksheetModelHibImp implements MarksheetModelInt {
 		MarksheetDTO duplicateMarksheet = findByRollNo(dto.getRollNo());
 
 		if (duplicateMarksheet != null) {
-			throw new DuplicateRecordException("Roll Number already exists");
+			throw new DuplicateRecordException("Roll Number already exists!");
 		}
 
 		long pk = 0;
@@ -64,7 +64,7 @@ public class MarksheetModelHibImp implements MarksheetModelInt {
 		Transaction tx = null;
 		MarksheetDTO dtoExist = fingByPK(dto.getId());
 		if (dtoExist == null) {
-			throw new ApplicationException("Marksheet does not exist");
+			throw new ApplicationException("Marksheet does not exist!");
 		}
 
 		try {
@@ -245,7 +245,7 @@ public class MarksheetModelHibImp implements MarksheetModelInt {
 		try {
 			session = HibDataSource.getSession();
 			StringBuffer hql = new StringBuffer(
-					"from MarksheetDTO where physics >= 33 and chemistry >= 33 and maths >= 33 order by (physics+chemistry+maths) desc");
+					"from MarksheetDTO where physics >=33 and chemistry >=33 and maths >=33 order by (physics+chemistry+maths) desc");
 			/*
 			 * if (pageSize > 0) { pageNo = (pageNo - 1) * pageSize; hql.append(" limit " +
 			 * pageNo + "," + pageSize); }

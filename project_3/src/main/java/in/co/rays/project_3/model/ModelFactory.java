@@ -1,96 +1,72 @@
 package in.co.rays.project_3.model;
 
-import java.util.HashMap;  
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 /**
  * ModelFactory decides which model implementation run
  * 
  * @author Sushobhit pandey
+ *
  */
-//MAKE CLASS FINAL SO THAT CHILD CAN'T BE CREATED
 public final class ModelFactory {
 
-	// MAKE DEFAULT CONSTRUCTOR PRIVATE SO THAT NO ONE OTHER CLASS CAN INSTANTIATE
-	// THE SINGLETON CLASS
+	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.project_3.bundle.system");
+	private static final String DATABASE = rb.getString("DATABASE");
+	private static ModelFactory mFactory = null;
+	private static HashMap modelCache = new HashMap();
+
 	private ModelFactory() {
 
 	}
 
-	// MAKE PRIVATE STATIC SELF TYPE VARIABLE SO THAT IT WIL HAVE ONLY ONE COPY IN
-	// THEIR LIFE TIME
-	private static ModelFactory modelFactory = null ;
-
-	// MAKE PUBLIC STATIC SELFTYPE GETINSTANCE METHOD SO THAT IF WILL RETURN THE
-	// INSTANCE OF SAME SINGLETON CLASS
 	public static ModelFactory getInstance() {
-		if (modelFactory == null) {
-
-			modelFactory = new ModelFactory();
+		if (mFactory == null) {
+			mFactory = new ModelFactory();
 		}
-
-		return modelFactory;
+		return mFactory;
 	}
 
-	private static ResourceBundle rb = ResourceBundle.getBundle("in/co/rays/project_3/bundle/system");
-
-	private static final String DATABASE = rb.getString("DATABASE");
-
-	private static HashMap modelCache = new HashMap();
-
-	public UserModelInt getUserModel() {
-
-		UserModelInt userModel = (UserModelInt) modelCache.get("userModel");
-
-		if (userModel == null){
-
+	public EmployeeModelInt getEmployeeModel() {
+		EmployeeModelInt employeeModel = (EmployeeModelInt) modelCache.get("employeeModel");
+		if (employeeModel == null) {
 			if ("Hibernate".equals(DATABASE)) {
-				userModel = new UserModelHibImp();
+				employeeModel = new EmployeeModelHibImp();
 			}
 			if ("JDBC".equals(DATABASE)) {
-				userModel = new UserModelJDBCImpl();
+				employeeModel = new EmployeeModelHibImp();
 			}
-
+			modelCache.put("employeeModel", employeeModel);
 		}
-
-		return userModel;
+		return employeeModel;
 	}
 	
-	public PurchaseModelInt getPurchaseModel() {
-
-		PurchaseModelInt purchaseModel = (PurchaseModelInt) modelCache.get("purchaseModel");
-
-		if (purchaseModel == null){
-
+	public StockPurchaseModelInt getStockPurchaseModel() {
+		StockPurchaseModelInt stockModel = (StockPurchaseModelInt) modelCache.get("stockModel");
+		if (stockModel == null) {
 			if ("Hibernate".equals(DATABASE)) {
-				purchaseModel = new PurchaseModelHibImpl();
+				stockModel = new StockPurchaseModelHibImp();
 			}
 			if ("JDBC".equals(DATABASE)) {
-				purchaseModel = new PurchaseModelHibImpl();
+				stockModel = new StockPurchaseModelHibImp();
 			}
-
+			modelCache.put("stockModel", stockModel);
 		}
-
-		return purchaseModel;
+		return stockModel;
 	}
-	
-	public CustomerModelInt getCustomerModel() {
 
-		CustomerModelInt customerModel = (CustomerModelInt) modelCache.get("customerModel");
-
-		if (customerModel == null) {
-
+	public ProductModelInt getProductModel() {
+		ProductModelInt productModel = (ProductModelInt) modelCache.get("productModel");
+		if (productModel == null) {
 			if ("Hibernate".equals(DATABASE)) {
-				customerModel = new CustomerModelHibImpl();
+				productModel = new ProductModelHibImp();
 			}
 			if ("JDBC".equals(DATABASE)) {
-//				customerModel = new CustomerModelJDBCImpl();
-				customerModel = new CustomerModelHibImpl();
+				productModel = new ProductModelHibImp();
 			}
-
+			modelCache.put("productModel", productModel);
 		}
-
-		return customerModel;
+		return productModel;
 	}
 
 	public MarksheetModelInt getMarksheetModel() {
@@ -135,6 +111,22 @@ public final class ModelFactory {
 			modelCache.put("roleModel", roleModel);
 		}
 		return roleModel;
+	}
+
+	public UserModelInt getUserModel() {
+
+		UserModelInt userModel = (UserModelInt) modelCache.get("userModel");
+		if (userModel == null) {
+			if ("Hibernate".equals(DATABASE)) {
+				userModel = new UserModelHibImp();
+			}
+			if ("JDBC".equals(DATABASE)) {
+				userModel = new UserModelJDBCImpl();
+			}
+			modelCache.put("userModel", userModel);
+		}
+
+		return userModel;
 	}
 
 	public StudentModelInt getStudentModel() {
@@ -213,7 +205,4 @@ public final class ModelFactory {
 
 		return facultyModel;
 	}
-
-
-
 }

@@ -22,7 +22,7 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Student functionality controller,to perform list and search operation
+ * student functionality controller,to perform list and search operation
  * @author Sushobhit pandey
  *
  */
@@ -151,7 +151,7 @@ public class StudentListCtl extends BaseCtl {
 				}
 			}
             
-			 if (OP_BACK.equalsIgnoreCase(op)) {
+			if (OP_BACK.equalsIgnoreCase(op)) {
 				ServletUtility.redirect(ORSView.STUDENT_LIST_CTL, request, response);
 				return;
 			}

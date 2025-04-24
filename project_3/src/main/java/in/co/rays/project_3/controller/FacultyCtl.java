@@ -25,8 +25,8 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Faculty functionality ctl.To perform add,delete and update operation
-* @author Sushobhit pandey
+ * faculty functionality ctl.To perform add,delete and update operation
+ * @author Sushobhit pandey
  *
  */
 @WebServlet(urlPatterns={"/ctl/FacultyCtl"})

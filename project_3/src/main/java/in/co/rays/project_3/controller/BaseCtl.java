@@ -1,6 +1,6 @@
 package in.co.rays.project_3.controller;
 
-import java.io.IOException; 
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +15,8 @@ import in.co.rays.project_3.util.DataValidator;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
+ * Base controller class of project. It contain (1) Generic operations (2)
+ * Generic constants (3) Generic work flow
  * @author Sushobhit pandey
  *
  */
@@ -138,9 +140,8 @@ public abstract class BaseCtl extends HttpServlet{
             }
         }
         super.service(request, response);
-		/*
-		 * System.out.println("Service base");
-		 */    }
+        System.out.println("Service base");
+    }
 
     /**
      * Returns the VIEW page of this Controller

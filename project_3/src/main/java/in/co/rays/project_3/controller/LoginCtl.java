@@ -23,7 +23,7 @@ import in.co.rays.project_3.util.PropertyReader;
 import in.co.rays.project_3.util.ServletUtility;
 
 /**
- * Login functionality controller. perform login operation
+ * login functionality controller. perform login operation
  * 
  * @author Sushobhit pandey
  *
@@ -50,20 +50,21 @@ public class LoginCtl extends BaseCtl {
 			request.setAttribute("login", PropertyReader.getValue("error.require", "Login Id"));
 			pass = false;
 		} else if (!DataValidator.isEmail(request.getParameter("login"))) {
-			request.setAttribute("login", PropertyReader.getValue("error.email", "Login Id"));
+			request.setAttribute("login", PropertyReader.getValue("error.email", "Login "));
 			pass = false;
 		}
 		if (DataValidator.isNull(request.getParameter("password"))) {
 			request.setAttribute("password", PropertyReader.getValue("error.require", "password"));
 			pass = false;
 		}
-
+		System.out.println(pass + "/////");
 		return pass;
 
 	}
 
 	protected BaseDTO populateDTO(HttpServletRequest request) {
 		UserDTO dto = new UserDTO();
+		System.out.println(request.getParameter("login"));
 		dto.setId(DataUtility.getLong(request.getParameter("id")));
 		dto.setLogin(DataUtility.getString(request.getParameter("login")));
 		dto.setPassword(DataUtility.getString(request.getParameter("password")));
@@ -83,10 +84,10 @@ public class LoginCtl extends BaseCtl {
 
 		long id = DataUtility.getLong(request.getParameter("id"));
 
-		if (OP_LOG_OUT.equals(op)){
+		if (OP_LOG_OUT.equals(op)) {
 			session = request.getSession();
 			session.invalidate();
-			ServletUtility.setSuccessMessage("User Logged Out Successfully", request);
+			ServletUtility.setSuccessMessage("User Logged Out Successfully!", request);
 			ServletUtility.forward(ORSView.LOGIN_VIEW, request, response);
 			return;
 		}
@@ -109,33 +110,34 @@ public class LoginCtl extends BaseCtl {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		String op = request.getParameter("operation");
+		String op = DataUtility.getString(request.getParameter("operation"));
 		System.out.println(";;;" + op);
 
 		HttpSession session = request.getSession(true);
 
 		UserModelInt userModel = ModelFactory.getInstance().getUserModel();
-		RoleModelInt roleModel = ModelFactory.getInstance().getRoleModel();
+		RoleModelInt model1 = ModelFactory.getInstance().getRoleModel();
 
+		// long id = DataUtility.getLong(request.getParameter("id"));
 
-		if(OP_SIGN_IN.equalsIgnoreCase(op)) {
+		if (OP_SIGN_IN.equalsIgnoreCase(op)) {
 			UserDTO dto = (UserDTO) populateDTO(request);
 			try {
 				dto = userModel.authenticate(dto.getLogin(), dto.getPassword());
-
 				if (dto != null) {
 					session.setAttribute("user", dto);
 					long roleId = dto.getRoleId();
-					RoleDTO roleDto = roleModel.findByPK(roleId);
-					if (roleDto != null) {
-						session.setAttribute("role", roleDto.getName());
+					RoleDTO rdto = model1.findByPK(roleId);
+					if (rdto != null) {
+						session.setAttribute("role", rdto.getName());
 					}
 					String uri = (String) request.getParameter("uri");
 					if (uri == null || "null".equalsIgnoreCase(uri)) {
 						ServletUtility.redirect(ORSView.WELCOME_CTL, request, response);
 						return;
 					} else {
-						if (roleDto.getId() == 1) {
+						System.out.println();
+						if (rdto.getId() == 1) {
 							ServletUtility.redirect(uri, request, response);
 						} else {
 							ServletUtility.redirect(ORSView.WELCOME_CTL, request, response);
@@ -147,7 +149,7 @@ public class LoginCtl extends BaseCtl {
 				} else {
 					dto = (UserDTO) populateDTO(request);
 					ServletUtility.setDto(dto, request);
-					ServletUtility.setErrorMessage("Invalid LoginId And Password", request);
+					ServletUtility.setErrorMessage("Invalid LoginId And Password!", request);
 				}
 
 			} catch (ApplicationException e) {

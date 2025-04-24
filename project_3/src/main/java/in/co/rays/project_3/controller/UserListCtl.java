@@ -31,18 +31,13 @@ import in.co.rays.project_3.util.ServletUtility;
 public class UserListCtl extends BaseCtl {
 
 	private static final long serialVersionUID = 1L;
-	 /** The log. */
 	private static Logger log = Logger.getLogger(UserListCtl.class);
 
 	protected void preload(HttpServletRequest request) {
 		RoleModelInt model = ModelFactory.getInstance().getRoleModel();
-		UserModelInt umodel= ModelFactory.getInstance().getUserModel();
-		
 		try {
 			List list = model.list();
-			List ulist = umodel.list();
 			request.setAttribute("roleList", list);
-			request.setAttribute("uList", ulist);
 		} catch (Exception e) {
 			log.error(e);
 
@@ -54,24 +49,19 @@ public class UserListCtl extends BaseCtl {
 		UserDTO dto = new UserDTO();
 
 		dto.setFirstName(DataUtility.getString(request.getParameter("firstName")));
+		dto.setGender(DataUtility.getString(request.getParameter("gender")));
+
 		dto.setLastName(DataUtility.getString(request.getParameter("lastName")));
 		dto.setDob(DataUtility.getDate(request.getParameter("dob")));
 		dto.setLogin(DataUtility.getString(request.getParameter("login")));
-		dto.setRoleId(DataUtility.getLong(request.getParameter("Role"))); 
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@"+dto);
+		dto.setRoleId(DataUtility.getLong(request.getParameter("Role")));
 		populateBean(dto, request);
-		
 		return dto;
 	}
 
-	 /**
-		 * Contains Display logics.
-		 *
-		 * @param request the request
-		 * @param response the response
-		 * @throws ServletException the servlet exception
-		 * @throws IOException Signals that an I/O exception has occurred.
-		 */
+	/**
+	 * Contains Display logics
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		log.debug("UserListCtl doGet Start");
@@ -79,15 +69,22 @@ public class UserListCtl extends BaseCtl {
 		List next;
 		int pageNo = 1;
 		int pageSize = DataUtility.getInt(PropertyReader.getValue("page.size"));
+		System.out.println("==========" + pageSize);
 		UserDTO dto = (UserDTO) populateDTO(request);
-
 		// get the selected checkbox ids array for delete list
 		UserModelInt model = ModelFactory.getInstance().getUserModel();
 		try {
+			System.out.println("in ctllllllllll search");
 			list = model.search(dto, pageNo, pageSize);
 
 			ArrayList<UserDTO> a = (ArrayList<UserDTO>) list;
 
+			for (UserDTO udto1 : a) {
+				System.out.println(udto1.getRoleId() + "[[[[[[[[[[[--------------------");
+			}
+
+			System.out.println(list + "----------------------------------------------------------");
+			System.out.println(list.indexOf(3));
 			next = model.search(dto, pageNo + 1, pageSize);
 			ServletUtility.setList(list, request);
 			if (list == null || list.size() == 0) {
@@ -114,14 +111,9 @@ public class UserListCtl extends BaseCtl {
 		log.debug("UserListCtl doPOst End");
 	}
 
-	  /**
-		 * Contains Submit logics.
-		 *
-		 * @param request the request
-		 * @param response the response
-		 * @throws ServletException the servlet exception
-		 * @throws IOException Signals that an I/O exception has occurred.
-		 */
+	/**
+	 * Contains Submit logics
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -152,7 +144,7 @@ public class UserListCtl extends BaseCtl {
 					pageNo--;
 				}
 
-			} else if (OP_NEW.equalsIgnoreCase(op)){
+			} else if (OP_NEW.equalsIgnoreCase(op)) {
 				ServletUtility.redirect(ORSView.USER_CTL, request, response);
 				return;
 			} else if (OP_RESET.equalsIgnoreCase(op)) {
@@ -166,10 +158,12 @@ public class UserListCtl extends BaseCtl {
 					for (String id : ids) {
 						deletedto.setId(DataUtility.getLong(id));
 						model.delete(deletedto);
-						ServletUtility.setSuccessMessage("Data Deleted Successfully", request);
+						ServletUtility.setSuccessMessage("Data Successfully Deleted!", request);
 					}
 				} else {
-					ServletUtility.setErrorMessage("Select at least one record", request);
+
+					ServletUtility.setErrorMessage("Select atleast one record", request);
+
 				}
 			}
 			if (OP_BACK.equalsIgnoreCase(op)) {
@@ -192,7 +186,7 @@ public class UserListCtl extends BaseCtl {
 				}
 			}
 			if (next == null || next.size() == 0) {
-				request.setAttribute("nextListSize", 0);	
+				request.setAttribute("nextListSize", 0);
 
 			} else {
 				request.setAttribute("nextListSize", next.size());
